@@ -4,8 +4,11 @@ from tkinter import ttk
 from datetime import datetime, timedelta, time
 from dotenv import load_dotenv
 import os
+import sys
 
-load_dotenv()
+dotenv_path = os.path.dirname(sys.executable)
+
+load_dotenv(os.path.join(dotenv_path, ".env"))
 
 # Create the API client
 client = vimeo.VimeoClient(
@@ -39,7 +42,7 @@ def upload():
         if (not convert_timestamps.get()) or (convert_timestamps.get() and index != 0):
             print("Passed Check")
             # Split the line into the timestamp section and the title section: timestamp - title
-            sections = line.split("-")
+            sections = line.split("-", 1)
 
             # Strip whitespace from sections (mainly spaces before/after)
             for i, section in enumerate(sections):
